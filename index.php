@@ -1,19 +1,29 @@
 <?php
+//Penser à supprimer les images du dossier "newImg" avant le rechargement de la page pour visaliser plus facilement le téléchargement des nouvelles images..
+require_once('utilities.php');
 
-//Files original..
-$img = 'img/singe.png';
+//Files original, on charge normalement le fichier que l'utilisateur upload..
+$imgUser = 'img/singe.png';
 
-//Setting new files..
-$newImg = imagecreatetruecolor(150, 150);
-$newfile = imagecreatefrompng($img);
-imagecopyresampled($newImg, $newfile, 0, 0, 0, 0, 150, 150, 512, 512);
-$newName = 'petit_singe.png';
-imagepng($newImg, $newName);
+//On récupère les informations originales du fichier..
+$arrayImgInfo =  getimagesize($imgUser);
+$origineWidth = $arrayImgInfo[0];
+$origineHeight = $arrayImgInfo[1];
 
-//header('Content-Type: image/png');
+//Déclaration de dimensions pour la version 400px..
+$width = 400;
+$height = 400;
 
-imagedestroy($newImg);
+littleImg($imgUser, $width, $height, $origineWidth, $origineHeight);
 
+//Déclaration de dimensions pour la version miniature..
+$width = 150;
+$height = 150;
 
+miniaImg($imgUser, $width, $height, $origineWidth, $origineHeight);
 
+$dir = scandir('C:\MAMP\htdocs\img_sizing\newImg');
+
+//A la fin du code, 2 image sont générées et sauvegardées dans le dossier "newImg"..
+require_once('index.html.php');
 ?>
