@@ -1,19 +1,19 @@
 <?php
 
+//Files original..
 $img = 'img/singe.png';
 
-echo "<img src='".$img."' alt='singe'> <br/>";
+//Setting new files..
+$newImg = imagecreatetruecolor(150, 150);
+$newfile = imagecreatefrompng($img);
+imagecopyresampled($newImg, $newfile, 0, 0, 0, 0, 150, 150, 512, 512);
+$newName = 'petit_singe.png';
+imagepng($newImg, $newName);
 
-$largeur = getimagesize($img);
-$width = '400';
-$height = '400';
-$newImg = imagecreatetruecolor($width, $height);
-$miniaWidth = '150';
-$miniaHeight = '150';
+//header('Content-Type: image/png');
 
-($img);
-echo "<br/>";
-imagepng($newImg, null, 1);
-var_dump($largeur);
+imagedestroy($newImg);
+
+
 
 ?>
